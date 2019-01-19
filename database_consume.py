@@ -7,23 +7,24 @@ db=client.uofthacks
 posts = db.posts
 
 #post_data = posts.findOne()
-keyList = []
-valueList = []
+command = ''
+value = ''
 command = -1
-for document in posts.find():
-    #sprint(document) # iterate the cursor
-    print document
-    #print type(document)
-    for key in document.keys():
-        print key
-        if key == "name":
-            #print key
-            keyList = keyList + [unicodedata.normalize('NFKD', document[key]).encode('ascii','ignore')]
-        elif key == "value":
-            #print key
-            valueList = valueList + [unicodedata.normalize('NFKD', document[key]).encode('ascii','ignore')]
-        else:
-            print "not name or value"
+document = posts.findOne({name:"Alarm_set"})
+
+#sprint(document) # iterate the cursor
+print document
+#print type(document)
+for garbage in document.keys():
+    print key
+    if garbage == "name":
+        #print key
+        command = unicodedata.normalize('NFKD', document[garbage]).encode('ascii','ignore')
+    elif key == "value":
+        #print key
+        value = unicodedata.normalize('NFKD', document[garbage]).encode('ascii','ignore')
+    else:
+        print "not name or value"
 
 if len(keyList) != len(valueList):
     print 'error: kv length mismatch'
