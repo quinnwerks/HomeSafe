@@ -51,5 +51,13 @@ non_intrusive = [
     "Owl",
     "Musical instrument",
     "Music",
-    "Synthesizer"
+    "Synthesizer",
+    "Sidetone",
+    "Singing bowl",
+    "Writing",
+    "Harmonic",
+    "Moo",
+    "Mouse",
+    "Chirp tone",
+    "Fly, housefly",
 ]
