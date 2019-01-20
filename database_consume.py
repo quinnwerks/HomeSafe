@@ -7,7 +7,7 @@ import time
 
 def worker_function(n, lock):
     worker_command = -1
-    time.sleep(5)
+    #time.sleep(5)
     with lock:
         worker_command = n.value
     if(worker_command == 1):
