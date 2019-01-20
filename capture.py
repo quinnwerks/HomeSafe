@@ -5,11 +5,16 @@ import datetime
 import get_predictions
 import classify
 
+lines = [line.strip().split("=") for line in open("key.txt")]
+keys = dict()
+for line in lines:
+    keys[line[0]] = line[1]
+
 
 def listen_for_intruders(location):
     # putting these in plaintext because why not
-    account_sid = "AC50a3fd23ae5cd739a21a0cbc574e2ae2"
-    auth_token = "770eadf052c0052fb81bebda06d2961d"
+    account_sid = keys["account_sid"]
+    auth_token = keys["auth_token"]
 
     client = Client(account_sid, auth_token)
 
@@ -57,8 +62,8 @@ def listen_for_intruders(location):
             text += " at " + location + "."
 
         message = client.messages.create(
-            to="+16479955178",
-            from_="+15878176259",
+            to=keys["to"],
+            from_=keys["from"],
             body=text
         )
 
