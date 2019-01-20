@@ -1,9 +1,10 @@
 from pymongo import MongoClient
-from bson.json_util import dumps 
+from bson.json_util import dumps
 import json
 import unicodedata
 from multiprocessing import Process, Lock, Value
 import time
+import capture
 
 def worker_function(n, lock):
     worker_command = -1
@@ -11,18 +12,19 @@ def worker_function(n, lock):
     with lock:
         worker_command = n.value
     if(worker_command == 1):
+        capture.main()
         print 'alarm is _on_ I should listen'
     elif(worker_command == 2):
         print 'alarm is _off_ I should do nothing'
-        
+
 
 
 
 def command_function(doNum):
-    
+
     client = MongoClient('mongodb://quinn2:quinn2@ds058508.mlab.com:58508/uofthacks')
     db=client.uofthacks
-  
+
     #post_data = posts.findOne()
     command = ''
     value = ''
@@ -46,9 +48,9 @@ def command_function(doNum):
                 doNum.value = 1
             elif value == 'off':
                 doNum.value = 2
-            else: 
+            else:
                 print 'error: invalid Alarm_set value'
-    
+
 
 
 

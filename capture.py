@@ -29,39 +29,38 @@ def main():
         frames_per_buffer=CHUNK
     )
 
-    f = open("log.txt", "a")
+    #f = open("log.txt", "a")
 
-    while True:
-        frames = [stream.read(CHUNK) for i in range(RATE//CHUNK*RECORD_SECONDS)]
+    frames = [stream.read(CHUNK) for i in range(RATE//CHUNK*RECORD_SECONDS)]
 
-        wf = wave.open(WAVE_OUTPUT_FILENAME, "wb")
-        wf.setnchannels(CHANNELS)
-        wf.setsampwidth(p.get_sample_size(FORMAT))
-        wf.setframerate(RATE)
-        wf.writeframes(b"".join(frames))
-        wf.close()
+    wf = wave.open(WAVE_OUTPUT_FILENAME, "wb")
+    wf.setnchannels(CHANNELS)
+    wf.setsampwidth(p.get_sample_size(FORMAT))
+    wf.setframerate(RATE)
+    wf.writeframes(b"".join(frames))
+    wf.close()
 
-        prediction = get_predictions.get_prediction(WAVE_OUTPUT_FILENAME)
+    prediction = get_predictions.get_prediction(WAVE_OUTPUT_FILENAME)
 
-        dangers = [i for i in prediction if i not in classify.non_intrusive]
+    dangers = [i for i in prediction if i not in classify.non_intrusive]
 
-        if len(dangers) > 0:
-            if len(dangers) == 1:
-                text = "There is " + dangers[0].lower() + " at your house."
-            else:
-                text = "There is either "
-                for i in range(len(dangers)):
-                    if i == 0:
-                        text += dangers[i].lower()
-                    else:
-                        text += " or " + dangers[i].lower()
-                text += " at your house."
+    if len(dangers) > 0:
+        if len(dangers) == 1:
+            text = "There is " + dangers[0].lower() + " at your house."
+        else:
+            text = "There is either "
+            for i in range(len(dangers)):
+                if i == 0:
+                    text += dangers[i].lower()
+                else:
+                    text += " or " + dangers[i].lower()
+            text += " at your house."
 
-            message = client.messages.create(
-                to="+16479955178",
-                from_="+15878176259",
-                body=text
-            )
+        message = client.messages.create(
+            to="+16479955178",
+            from_="+15878176259",
+            body=text
+        )
 
-        f.write("[" + str(datetime.datetime.now().time()) + "] " + str(prediction) + "\n")
-        f.flush()
+    #f.write("[" + str(datetime.datetime.now().time()) + "] " + str(prediction) + "\n")
+    #f.flush()
