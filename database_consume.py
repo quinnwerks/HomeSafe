@@ -16,7 +16,7 @@ def worker_function(n, lock):
         listen_for_intruders()
     elif(worker_command == 2):
         print('alarm is _off_ I should do nothing')
-        
+
 
 
 
@@ -40,8 +40,8 @@ def command_function(doNum):
         elif garbage == "value":
             #print key
             value = document[garbage]#unicodedata.normalize('NFKD', document[garbage]).encode('ascii','ignore')
-        else:
-            print("not name or value")
+        #else:
+            #print("not name or value")
 
     with lock:
         if command == 'Alarm_set':
@@ -49,9 +49,9 @@ def command_function(doNum):
                 doNum.value = 1
             elif value == 'off':
                 doNum.value = 2
-            else: 
+            else:
                 print('error: invalid Alarm_set value')
-    
+
 
 
 
