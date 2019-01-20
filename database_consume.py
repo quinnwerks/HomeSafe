@@ -1,5 +1,5 @@
 from pymongo import MongoClient
-from bson.json_util import dumps 
+from bson.json_util import dumps
 import json
 import unicodedata
 from multiprocessing import Process, Lock, Value
@@ -21,10 +21,10 @@ def worker_function(n, lock):
 
 
 def command_function(doNum):
-    
+
     client = MongoClient('mongodb://quinn2:quinn2@ds058508.mlab.com:58508/uofthacks')
     db=client.uofthacks
-  
+
     #post_data = posts.findOne()
     command = ''
 
@@ -36,10 +36,10 @@ def command_function(doNum):
     for garbage in document.keys():
         if garbage == "name":
             #print key
-            command = unicodedata.normalize('NFKD', document[garbage]).encode('ascii','ignore')
+            command = document[garbage]#unicodedata.normalize('NFKD', document[garbage]).encode('ascii','ignore')
         elif garbage == "value":
             #print key
-            value = unicodedata.normalize('NFKD', document[garbage]).encode('ascii','ignore')
+            value = document[garbage]#unicodedata.normalize('NFKD', document[garbage]).encode('ascii','ignore')
         else:
             print("not name or value")
 
