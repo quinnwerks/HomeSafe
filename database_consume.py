@@ -53,7 +53,7 @@ def command_function(doNum):
                     doNum.value = 1
                 elif value == 'off':
                     doNum.value = 2
-                else:
+                #else:
                     #print('error: invalid Alarm_set value')
         print("done updating value")
         print(value)
