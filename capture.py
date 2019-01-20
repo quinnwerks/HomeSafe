@@ -6,7 +6,7 @@ import get_predictions
 import classify
 
 
-def main():
+def listen_for_intruders():
     # putting these in plaintext because why not
     account_sid = "AC50a3fd23ae5cd739a21a0cbc574e2ae2"
     auth_token = "770eadf052c0052fb81bebda06d2961d"

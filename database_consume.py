@@ -4,6 +4,7 @@ import json
 import unicodedata
 from multiprocessing import Process, Lock, Value
 import time
+from capture import listen_for_intruders
 
 def worker_function(n, lock):
     worker_command = -1
@@ -11,9 +12,10 @@ def worker_function(n, lock):
     with lock:
         worker_command = n.value
     if(worker_command == 1):
-        print 'alarm is _on_ I should listen'
+        print('alarm is _on_ I should listen')
+        listen_for_intruders()
     elif(worker_command == 2):
-        print 'alarm is _off_ I should do nothing'
+        print('alarm is _off_ I should do nothing')
         
 
 
@@ -25,10 +27,11 @@ def command_function(doNum):
   
     #post_data = posts.findOne()
     command = ''
+
     value = ''
     document = db.posts.find_one()
     #sprint(document) # iterate the cursor
-    print document
+    print(document)
     #print type(document)
     for garbage in document.keys():
         if garbage == "name":
@@ -38,7 +41,7 @@ def command_function(doNum):
             #print key
             value = unicodedata.normalize('NFKD', document[garbage]).encode('ascii','ignore')
         else:
-            print "not name or value"
+            print("not name or value")
 
     with lock:
         if command == 'Alarm_set':
@@ -47,7 +50,7 @@ def command_function(doNum):
             elif value == 'off':
                 doNum.value = 2
             else: 
-                print 'error: invalid Alarm_set value'
+                print('error: invalid Alarm_set value')
     
 
 
