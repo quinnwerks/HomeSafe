@@ -35,7 +35,7 @@ def command_function(doNum):
     while True:
         document = db.posts.find_one()
         #sprint(document) # iterate the cursor
-        print(document)
+        #print(document)
         #print type(document)
         for garbage in document.keys():
             if garbage == "name":
@@ -54,8 +54,10 @@ def command_function(doNum):
                 elif value == 'off':
                     doNum.value = 2
                 else:
-                    print('error: invalid Alarm_set value')
+                    #print('error: invalid Alarm_set value')
         print("done updating value")
+        print(value)
+        time.sleep(5)
 
 
 
