@@ -6,7 +6,7 @@ import get_predictions
 import classify
 
 
-def listen_for_intruders():
+def listen_for_intruders(location):
     # putting these in plaintext because why not
     account_sid = "AC50a3fd23ae5cd739a21a0cbc574e2ae2"
     auth_token = "770eadf052c0052fb81bebda06d2961d"
@@ -46,7 +46,7 @@ def listen_for_intruders():
 
     if len(dangers) > 0:
         if len(dangers) == 1:
-            text = "There is " + dangers[0].lower() + " at your house."
+            text = "There is " + dangers[0].lower() + " at " + location + "."
         else:
             text = "There is either "
             for i in range(len(dangers)):
@@ -54,7 +54,7 @@ def listen_for_intruders():
                     text += dangers[i].lower()
                 else:
                     text += " or " + dangers[i].lower()
-            text += " at your house."
+            text += " at " + location + "."
 
         message = client.messages.create(
             to="+16479955178",

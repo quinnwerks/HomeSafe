@@ -6,7 +6,7 @@ from multiprocessing import Process, Lock, Value
 import time
 from capture import listen_for_intruders
 
-def worker_function(n, lock):
+def worker_function(n, lock, location):
     worker_command = -1
     time.sleep(2)
     while True:
@@ -14,7 +14,7 @@ def worker_function(n, lock):
             worker_command = n.value
         if(worker_command == 1):
             print('alarm is _on_ I should listen')
-            listen_for_intruders()
+            listen_for_intruders(location)
         elif(worker_command == 2):
             print('alarm is _off_ I should do nothing')
         print("will poll again in 55 seconds")
@@ -67,7 +67,8 @@ if __name__ == '__main__':
     #queue doNum = Queue()
     doNum = Value('i', -1)
     lock = Lock()
-    p = Process(target=worker_function, args=(doNum, lock))
+    location = 'demo'
+    p = Process(target=worker_function, args=(doNum, lock, location))
     p.start()
     command_function(doNum)
     p.join()
